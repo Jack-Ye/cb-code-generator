@@ -111,10 +111,10 @@ public class Generate {
                             context.addProperty(PropertyRegistry.CONTEXT_JAVA_FILE_ENCODING, "UTF-8");
                             context.setTargetRuntime("MyBatis3");
 
-                            JDBCConnectionConfiguration jdbcConfig = buildJdbcConfig(psiElement);
-                            if (jdbcConfig == null) {
-                                return;
-                            }
+//                            JDBCConnectionConfiguration jdbcConfig = buildJdbcConfig(psiElement);
+//                            if (jdbcConfig == null) {
+//                                return;
+//                            }
                             TableConfiguration tableConfig = buildTableConfig(psiElement, context);
                             JavaModelGeneratorConfiguration modelConfig = buildModelConfig();
                             SqlMapGeneratorConfiguration mapperConfig = buildMapperXmlConfig();
