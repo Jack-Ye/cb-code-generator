@@ -122,7 +122,6 @@ public class Generate {
                             CommentGeneratorConfiguration commentConfig = buildCommentConfig();
 
                             context.addTableConfiguration(tableConfig);
-                            context.setJdbcConnectionConfiguration(jdbcConfig);
                             context.setJavaModelGeneratorConfiguration(modelConfig);
                             context.setSqlMapGeneratorConfiguration(mapperConfig);
                             context.setJavaClientGeneratorConfiguration(daoConfig);
@@ -135,8 +134,8 @@ public class Generate {
                             Set<String> fullyqualifiedTables = new HashSet<>();
                             Set<String> contexts = new HashSet<>();
                             try {
-                                MyBatisGenerator myBatisGenerator = new MyBatisGenerator(configuration, shellCallback, warnings);
-                                myBatisGenerator.generate(new GeneratorCallback(), contexts, fullyqualifiedTables);
+//                                MyBatisGenerator myBatisGenerator = new MyBatisGenerator(configuration, shellCallback, warnings);
+//                                myBatisGenerator.generate(new GeneratorCallback(), contexts, fullyqualifiedTables);
                             } catch (Exception e) {
                                 //                                Messages.showMessageDialog(e.getMessage() + " if use mysql,check version8?", "Generate failure", Messages.getInformationIcon());
                                 System.out.println("代码生成报错");
@@ -206,49 +205,7 @@ public class Generate {
         persistentConfig.setHistoryConfigList(historyConfigList);
 
     }
-
-    /**
-     * 生成数据库连接配置
-     *
-     * @param psiElement
-     * @return
-     */
-    private JDBCConnectionConfiguration buildJdbcConfig(PsiElement psiElement) {
-
-        JDBCConnectionConfiguration jdbcConfig = new JDBCConnectionConfiguration();
-        jdbcConfig.addProperty("nullCatalogMeansCurrent", "true");
-
-
-        Map<String, User> users = persistentConfig.getUsers();
-        if (users != null && users.containsKey(url)) {
-            User user = users.get(url);
-
-            username = user.getUsername();
-
-            CredentialAttributes attributes_get = new CredentialAttributes("better-mybatis-generator-" + url, username, this.getClass(), false);
-            String password = PasswordSafe.getInstance().getPassword(attributes_get);
-            if (StringUtils.isEmpty(password)) {
-                new UserUI(driverClass, url, anActionEvent, config);
-                return null;
-            }
-
-            jdbcConfig.setUserId(username);
-            jdbcConfig.setPassword(password);
-
-            Boolean mySQL_8 = config.isMysql_8();
-            if (mySQL_8) {
-                driverClass = DbType.MySQL_8.getDriverClass();
-            }
-
-            jdbcConfig.setDriverClass(driverClass);
-            jdbcConfig.setConnectionURL(url);
-            return jdbcConfig;
-        } else {
-            new UserUI(driverClass, url, anActionEvent, config);
-            return null;
-        }
-
-    }
+    
 
     /**
      * 生成table配置

@@ -39,7 +39,6 @@ public class MainUI extends JFrame {
     private PersistentConfig persistentConfig;
     private PsiElement[] psiElements;
     private Map<String, Config> initConfigMap;
-    private Map<String, Config> historyConfigList;
     private Config config;
 
 
@@ -91,11 +90,10 @@ public class MainUI extends JFrame {
         this.psiElements = anActionEvent.getData(LangDataKeys.PSI_ELEMENT_ARRAY);
 
         initConfigMap = persistentConfig.getInitConfig();
-        historyConfigList = persistentConfig.getHistoryConfigList();
 
 
 
-        setTitle("mybatis generate tool");
+        setTitle("宸邦代码生成");
         setPreferredSize(new Dimension(1200, 700));//设置大小
         setLocation(120, 100);
         pack();
@@ -122,13 +120,6 @@ public class MainUI extends JFrame {
             if (initConfigMap != null) {//单表时，优先使用已经存在的配置
                 config = initConfigMap.get("initConfig");
                 ;
-            }
-            if (historyConfigList == null) {
-                historyConfigList = new HashMap<>();
-            } else {
-                if (historyConfigList.containsKey(tableName)) {
-                    config = historyConfigList.get(tableName);
-                }
             }
         }
 
@@ -443,17 +434,6 @@ public class MainUI extends JFrame {
         this.getContentPane().add(Box.createVerticalStrut(10)); //采用x布局时，添加固定宽度组件隔开
         final DefaultListModel defaultListModel = new DefaultListModel();
 
-        Border historyBorder = BorderFactory.createTitledBorder("history config:");
-        panelLeft.setBorder(historyBorder);
-
-
-        if (historyConfigList == null) {
-            historyConfigList = new HashMap<>();
-        }
-        for (String historyConfigName : historyConfigList.keySet()) {
-            defaultListModel.addElement(historyConfigName);
-        }
-        Map<String, Config> finalHistoryConfigList = historyConfigList;
 
         final JBList fruitList = new JBList(defaultListModel);
         fruitList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -471,7 +451,6 @@ public class MainUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String configName = (String) fruitList.getSelectedValue();
-                Config selectedConfig = finalHistoryConfigList.get(configName);
                 modelPackageField.setText(selectedConfig.getModelPackage());
                 daoPackageField.setText(selectedConfig.getDaoPackage());
                 xmlPackageField.setText(selectedConfig.getXmlPackage());
@@ -492,19 +471,12 @@ public class MainUI extends JFrame {
                 annotationBox.setSelected(selectedConfig.isAnnotation());
                 useActualColumnNamesBox.setSelected(selectedConfig.isUseActualColumnNames());
                 useTableNameAliasBox.setSelected(selectedConfig.isUseTableNameAlias());
-                useExampleBox.setSelected(selectedConfig.isUseExample());
-                mysql_8Box.setSelected(selectedConfig.isMysql_8());
-
             }
         });
         deleteConfigBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                finalHistoryConfigList.remove(fruitList.getSelectedValue());
                 defaultListModel.removeAllElements();
-                for (String historyConfigName : finalHistoryConfigList.keySet()) {
-                    defaultListModel.addElement(historyConfigName);
-                }
             }
         });
         panelLeft.add(btnPanel);
