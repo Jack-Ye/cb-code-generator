@@ -45,8 +45,6 @@ public class MainUI extends JFrame {
     private JPanel contentPane = new JBPanel<>();
     private JButton buttonOK = new JButton("ok");
     private JButton buttonCancel = new JButton("cancle");
-    private JButton selectConfigBtn = new JButton("SELECT");
-    private JButton deleteConfigBtn = new JButton("DELETE");
 
 
     private JTextField tableNameField = new JTextField(10);
@@ -432,54 +430,6 @@ public class MainUI extends JFrame {
         JPanel panelLeft = new JPanel();
         panelLeft.setLayout(new BoxLayout(panelLeft, BoxLayout.Y_AXIS));
         this.getContentPane().add(Box.createVerticalStrut(10)); //采用x布局时，添加固定宽度组件隔开
-        final DefaultListModel defaultListModel = new DefaultListModel();
-
-
-        final JBList fruitList = new JBList(defaultListModel);
-        fruitList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        fruitList.setSelectedIndex(0);
-        fruitList.setVisibleRowCount(25);
-        JBScrollPane ScrollPane = new JBScrollPane(fruitList);
-        panelLeft.add(ScrollPane);
-
-        JPanel btnPanel = new JPanel();
-        btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.X_AXIS));
-
-        btnPanel.add(selectConfigBtn);
-        btnPanel.add(deleteConfigBtn);
-        selectConfigBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String configName = (String) fruitList.getSelectedValue();
-                modelPackageField.setText(selectedConfig.getModelPackage());
-                daoPackageField.setText(selectedConfig.getDaoPackage());
-                xmlPackageField.setText(selectedConfig.getXmlPackage());
-                projectFolderBtn.setText(selectedConfig.getProjectFolder());
-                modelFolderBtn.setText(selectedConfig.getModelTargetFolder());
-                daoFolderBtn.setText(selectedConfig.getDaoTargetFolder());
-                xmlFolderBtn.setText(selectedConfig.getXmlTargetFolder());
-
-                offsetLimitBox.setSelected(selectedConfig.isOffsetLimit());
-                commentBox.setSelected(selectedConfig.isComment());
-                overrideXMLBox.setSelected(selectedConfig.isOverrideXML());
-                needToStringHashcodeEqualsBox.setSelected(selectedConfig.isNeedToStringHashcodeEquals());
-                useSchemaPrefixBox.setSelected(selectedConfig.isUseSchemaPrefix());
-                needForUpdateBox.setSelected(selectedConfig.isNeedForUpdate());
-                annotationDAOBox.setSelected(selectedConfig.isAnnotationDAO());
-                useDAOExtendStyleBox.setSelected(selectedConfig.isUseDAOExtendStyle());
-                jsr310SupportBox.setSelected(selectedConfig.isJsr310Support());
-                annotationBox.setSelected(selectedConfig.isAnnotation());
-                useActualColumnNamesBox.setSelected(selectedConfig.isUseActualColumnNames());
-                useTableNameAliasBox.setSelected(selectedConfig.isUseTableNameAlias());
-            }
-        });
-        deleteConfigBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                defaultListModel.removeAllElements();
-            }
-        });
-        panelLeft.add(btnPanel);
 
 
         contentPane.add(paneMain, BorderLayout.CENTER);
