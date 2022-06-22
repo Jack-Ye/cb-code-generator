@@ -48,6 +48,10 @@ public class TableDelegate {
         return tableElement.getName();
     }
 
+    public  TableInfo getTableInfo(){
+        return tableInfo;
+    }
+
     public List<ColumnInfo> getColumns() {
         return columns;
     }

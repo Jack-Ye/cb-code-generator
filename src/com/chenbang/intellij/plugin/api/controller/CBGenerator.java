@@ -19,11 +19,11 @@ public class CBGenerator {
 
     public static class Form {
         String projectName = "sunrise";
+        String baseDirName = "/Users/kcajay/Code/cb/temp/";
         String basePackageName = "com.chenbang";
-        String subprojectNames = "com.chenbang.intellij.plugin.api,admin";
+        String subprojectNames = "api,admin,mobile,web";
         String tableNames = "clazz";
         String tablePrefix = "";
-        String baseDirName = "/Users/kcajay/Code/cb/temp/";
         List<TableInfo> tableInfoList;
     }
 
