@@ -17,14 +17,46 @@ import java.util.Map;
 
 public class CBGenerator {
 
+    public static void main(String[] args) {
+        generateProject(new Form());
+    }
+
     public static class Form {
-        String projectName = "sunrise";
-        String baseDirName = "/Users/kcajay/Code/cb/temp/";
+        String projectName = "demo";
+        String baseDirName = "./";
         String basePackageName = "com.chenbang";
         String subprojectNames = "api,admin,mobile,web";
-        String tableNames = "clazz";
+        String tableNames = "";
         String tablePrefix = "";
         List<TableInfo> tableInfoList;
+
+        public void setProjectName(String projectName) {
+            this.projectName = projectName;
+        }
+
+        public void setBaseDirName(String baseDirName) {
+            this.baseDirName = baseDirName.endsWith("/") ? baseDirName : baseDirName + "/";
+        }
+
+        public void setBasePackageName(String basePackageName) {
+            this.basePackageName = basePackageName;
+        }
+
+        public void setSubprojectNames(String subprojectNames) {
+            this.subprojectNames = subprojectNames;
+        }
+
+        public void setTableNames(String tableNames) {
+            this.tableNames = tableNames;
+        }
+
+        public void setTablePrefix(String tablePrefix) {
+            this.tablePrefix = tablePrefix;
+        }
+
+        public void setTableInfoList(List<TableInfo> tableInfoList) {
+            this.tableInfoList = tableInfoList;
+        }
     }
 
     public static void generateProject(Form form) {
@@ -72,8 +104,7 @@ public class CBGenerator {
 
         List<String> tableNameList = Arrays.asList(form.tableNames.split(","));
 
-        //TODO ？
-        String coreBaseDirName = form.baseDirName + "/wj-services";
+        String coreBaseDirName = form.baseDirName + form.projectName+"/"+form.projectName+"-core";
 
         DirUtils.mkdir(coreBaseDirName);
 

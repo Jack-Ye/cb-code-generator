@@ -44,20 +44,20 @@ public class GenerateProject {
     public static void generateApiProject(String baseDirName, String basePackageName, String projectName, String dbTypeName, Configuration configuration, Map<Object, Object> context) throws Exception {
         Map<String, String> dirMap = mkdir(baseDirName, basePackageName, projectName, "api");
 
-        TemplateUtils.generateFile(dirMap.get("basedir") + "/pom.xml", "template/mvn/com.chenbang.intellij.plugin.api/pom.xml.ftl", configuration, context);
+        TemplateUtils.generateFile(dirMap.get("basedir") + "/pom.xml", "template/mvn/api/pom.xml.ftl", configuration, context);
 
         String resourcesDir = dirMap.get("/src/main/resources");
 
-        TemplateUtils.generateFile(resourcesDir + "/freemarker.properties", "template/mvn/com.chenbang.intellij.plugin.api/freemarker.properties.ftl", configuration, context);
-        TemplateUtils.generateFile(resourcesDir + "/config.properties", "template/mvn/com.chenbang.intellij.plugin.api/config.properties.ftl", configuration, context);
-        TemplateUtils.generateFile(resourcesDir + "/logback.xml", "template/mvn/com.chenbang.intellij.plugin.api/logback.xml.ftl", configuration, context);
+        TemplateUtils.generateFile(resourcesDir + "/freemarker.properties", "template/mvn/api/freemarker.properties.ftl", configuration, context);
+        TemplateUtils.generateFile(resourcesDir + "/config.properties", "template/mvn/api/config.properties.ftl", configuration, context);
+        TemplateUtils.generateFile(resourcesDir + "/logback.xml", "template/mvn/api/logback.xml.ftl", configuration, context);
 
         DirUtils.mkdir(dirMap.get("basedir") + "/src/main/webapp/WEB-INF");
-        TemplateUtils.generateFile(dirMap.get("basedir") + "/src/main/webapp/WEB-INF/web.xml", "template/mvn/com.chenbang.intellij.plugin.api/web.xml.ftl", configuration, context);
-        TemplateUtils.generateFile(dirMap.get("basedir") + "/src/main/webapp/WEB-INF/dispatcher-servlet.xml", "template/mvn/com.chenbang.intellij.plugin.api/dispatcher-servlet.xml.ftl", configuration, context);
+        TemplateUtils.generateFile(dirMap.get("basedir") + "/src/main/webapp/WEB-INF/web.xml", "template/mvn/api/web.xml.ftl", configuration, context);
+        TemplateUtils.generateFile(dirMap.get("basedir") + "/src/main/webapp/WEB-INF/dispatcher-servlet.xml", "template/mvn/api/dispatcher-servlet.xml.ftl", configuration, context);
 
         DirUtils.mkdir(dirMap.get("basedir") + "/src/test/META-INF");
-        TemplateUtils.generateFile(dirMap.get("basedir") + "/src/test/META-INF/context.xml", "template/mvn/com.chenbang.intellij.plugin.api/context." + dbTypeName + ".xml.ftl", configuration, context);
+        TemplateUtils.generateFile(dirMap.get("basedir") + "/src/test/META-INF/context.xml", "template/mvn/api/context." + dbTypeName + ".xml.ftl", configuration, context);
     }
 
     public static void generateMobileProject(String baseDirName, String basePackageName, String projectName, String dbTypeName, Configuration configuration, Map<Object, Object> context) throws Exception {
