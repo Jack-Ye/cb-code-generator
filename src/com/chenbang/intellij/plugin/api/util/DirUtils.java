@@ -10,6 +10,11 @@ public final class DirUtils {
         }
     }
 
+    public static boolean exists(String path){
+        File file = new File(path);
+        return file.exists();
+    }
+
     private DirUtils() {
     }
 }

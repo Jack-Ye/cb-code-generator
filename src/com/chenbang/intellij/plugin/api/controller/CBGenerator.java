@@ -104,7 +104,7 @@ public class CBGenerator {
 
         List<String> tableNameList = Arrays.asList(form.tableNames.split(","));
 
-        String coreBaseDirName = form.baseDirName + form.projectName+"/"+form.projectName+"-core";
+        String coreBaseDirName = form.baseDirName + form.projectName + "/" + form.projectName + "-core";
 
         DirUtils.mkdir(coreBaseDirName);
 
@@ -146,12 +146,15 @@ public class CBGenerator {
             Map<Object, Object> context = GenerateModel.getContext(form.basePackageName, form.projectName, form.tablePrefix, tableInfo);
 
             try {
+                //model类不存在，生成dao文件
+                if (!DirUtils.exists(modelPathname)) {
+                    TemplateUtils.generateFile(daoPathname, "template/dao/dao.ftl", configuration, context);
+                    TemplateUtils.generateFile(daoImplPathname, "template/mybatis/dao/dao-impl.ftl", configuration, context);
+                    TemplateUtils.generateFile(boPathname, "template/bo/bo.ftl", configuration, context);
+                    TemplateUtils.generateFile(boImplPathname, "template/bo/bo-impl.ftl", configuration, context);
+                }
                 TemplateUtils.generateFile(sqlMapPathname, "template/mybatis/mapper-" + GenerateModel.getDbTypeName(1).toLowerCase().replace(" ", "-") + ".ftl", configuration, context);
                 TemplateUtils.generateFile(modelPathname, "template/model/model.ftl", configuration, context);
-                TemplateUtils.generateFile(daoPathname, "template/dao/dao.ftl", configuration, context);
-                TemplateUtils.generateFile(daoImplPathname, "template/mybatis/dao/dao-impl.ftl", configuration, context);
-                TemplateUtils.generateFile(boPathname, "template/bo/bo.ftl", configuration, context);
-                TemplateUtils.generateFile(boImplPathname, "template/bo/bo-impl.ftl", configuration, context);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
